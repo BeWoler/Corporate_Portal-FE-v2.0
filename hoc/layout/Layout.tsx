@@ -1,7 +1,7 @@
 import { FC, Fragment, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch } from '@/redux/hooks/redux';
-import { ILayout } from './interfaces/layout.interface';
+import { ILayout } from './interface/layout.interface';
 import { languageData } from '@/redux/services/language.slice';
 import Header from '@/components/Header/Header';
 import lang from '@/content/language.json'

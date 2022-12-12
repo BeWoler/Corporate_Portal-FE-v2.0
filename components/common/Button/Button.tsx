@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { IButton } from './interfaces/button.interface';
+import { IButton } from './interface/button.interface';
 
 const Button = ({
   value = 'Button',
