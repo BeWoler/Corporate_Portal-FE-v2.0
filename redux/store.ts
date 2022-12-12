@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import languageSlice from "./services/language.slice";
 
-const rootReducer = combineReducers({})
+const rootReducer = combineReducers({
+  languageData: languageSlice
+})
 
 export const setupStore = () => {
   return configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
   })
 }
 

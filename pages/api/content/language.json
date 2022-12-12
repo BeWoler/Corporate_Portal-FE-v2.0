@@ -1,0 +1,16 @@
+{
+  "en": {
+    "header": {
+      "signIn": "Sign In",
+      "logout": "Logout",
+      "title": "C-Portal"
+    }
+  },
+  "ru": {
+    "header": {
+      "signIn": "Войти",
+      "logout": "Выйти",
+      "title": "C-Portal"
+    }
+  }
+}
