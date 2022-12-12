@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -17,17 +17,33 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/hoc/*": [
+        "hoc/*"
+      ],
+      "@/redux/*": [
+        "redux/*"
+      ],
+      "@/content/*": [
+        "pages/api/content/*"
+      ],
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "tsconfig.paths.json",
-    "tsconfig.paths.json"
+    "utils/hooks/usePwaReload.js",
+    "components/ClientOnly.tsx",
+    "database/db.ts",
+    "database/api.js"
   ],
   "exclude": [
     "node_modules"
-  ],
-  "extends": "./tsconfig.paths.json"
+  ]
 }
