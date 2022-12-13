@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Language } from '../models/language'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Language } from '../models/language';
 
 export interface LanguageState {
   value: Language;
@@ -11,21 +11,21 @@ const initialState: LanguageState = {
     header: {
       signIn: 'Sign In',
       logout: 'Logout',
-      title: 'C-Portal'
-    }
+      title: 'C-Portal',
+    },
   },
   isLoading: false,
-}
+};
 
 export const languageSlice = createSlice({
   name: 'languageData',
   initialState,
   reducers: {
     languageData: (state: LanguageState, action: PayloadAction<Language>) => {
-      state.value = action.payload
-    }
-  }
-})
+      state.value = action.payload;
+    },
+  },
+});
 
 export const { languageData } = languageSlice.actions;
 
