@@ -1,15 +1,16 @@
-import { Box, Flex, Text, Avatar, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Text, Avatar, useBoolean } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppSelector } from '../../redux/hooks/redux';
 import Button from '../common/Button/Button/Button';
+import LanguageTab from '../common/LanguageTab/LanguageTab';
 
 const Header = () => {
   const [cookies, setCookie] = useCookies(['language']);
   const [lang, setLang] = useState<string>('en');
+  const [isOpen, setOpen] = useBoolean();
   const languageData = useAppSelector((state) => state.languageData.value);
   const userData = useAppSelector((state) => state.userData.value);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => setLang(cookies.language), [cookies.language]);
 
@@ -31,17 +32,29 @@ const Header = () => {
       >
         {languageData?.header.title}
       </Text>
-      <Flex align={'center'} gap={'10px'}>
-        <Button
-          value={lang?.toUpperCase()}
-          transition={'all ease .3s'}
-          bgHoverColor={'main.btnHoverColor'}
-          fontW={'600'}
-          borderRadius={'100px'}
-          h={'30px'}
-          w={'fit-content'}
-          p={'20px'}
-        />
+      <Flex align={'center'}>
+        <Flex direction={'column'} position={'relative'}>
+          <Button
+            value={lang?.toUpperCase()}
+            transition={'all ease .3s'}
+            bgHoverColor={'main.btnHoverColor'}
+            fontW={'600'}
+            w={'65px'}
+            p={'20px'}
+            onClick={setOpen.toggle}
+          />
+          <Box
+            as="button"
+            onClick={setOpen.toggle}
+            transition={'all ease .3s'}
+            opacity={isOpen ? 1 : 0}
+            position={'relative'}
+            zIndex={-1}
+            transform={isOpen ? 'translateY(0px)' : 'translateY(-100px)'}
+          >
+            <LanguageTab />
+          </Box>
+        </Flex>
         {userData.username ? (
           <Flex align={'center'} direction={'row'} gap={'10px'} ml={'20px'}>
             <Avatar name={userData.username} size={'sm'} />
@@ -53,8 +66,6 @@ const Header = () => {
             transition={'all ease .3s'}
             bgHoverColor={'main.btnHoverColor'}
             fontW={'500'}
-            borderRadius={'100px'}
-            h={'30px'}
             w={'fit-content'}
             p={'20px'}
           />

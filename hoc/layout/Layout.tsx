@@ -1,10 +1,11 @@
-import { FC, Fragment, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch } from '@/redux/hooks/redux';
 import { ILayout } from './interface/layout.interface';
 import { languageData } from '@/redux/services/language.slice';
 import Header from '@/components/Header/Header';
 import lang from '@/content/language.json';
+import { Box } from '@chakra-ui/react';
 
 const Layout: FC<ILayout> = ({ children }: ILayout) => {
   const [cookies] = useCookies(['language']);
@@ -23,10 +24,10 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
   }, [cookies.language, dispatch]);
 
   return (
-    <Fragment>
+    <Box boxSizing="border-box" zIndex={2} position={'relative'}>
       <Header />
       {children}
-    </Fragment>
+    </Box>
   );
 };
 
