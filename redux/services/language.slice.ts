@@ -12,6 +12,7 @@ const initialState: LanguageState = {
       signIn: 'Sign In',
       logout: 'Logout',
       title: 'C-Portal',
+      language: 'Language',
     },
   },
   isLoading: false,

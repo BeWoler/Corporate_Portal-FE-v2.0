@@ -24,7 +24,12 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
   }, [cookies.language, dispatch]);
 
   return (
-    <Box boxSizing="border-box" zIndex={2} position={'relative'}>
+    <Box
+      boxSizing="border-box"
+      zIndex={1}
+      position={'relative'}
+      color={'brand.black'}
+    >
       <Header />
       {children}
     </Box>

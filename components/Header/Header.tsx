@@ -6,13 +6,9 @@ import Button from '../common/Button/Button/Button';
 import LanguageTab from '../common/LanguageTab/LanguageTab';
 
 const Header = () => {
-  const [cookies, setCookie] = useCookies(['language']);
-  const [lang, setLang] = useState<string>('en');
   const [isOpen, setOpen] = useBoolean();
   const languageData = useAppSelector((state) => state.languageData.value);
   const userData = useAppSelector((state) => state.userData.value);
-
-  useEffect(() => setLang(cookies.language), [cookies.language]);
 
   return (
     <Flex
@@ -32,25 +28,22 @@ const Header = () => {
       >
         {languageData?.header.title}
       </Text>
-      <Flex align={'center'}>
+      <Flex align={'center'} gap={'30px'}>
         <Flex direction={'column'} position={'relative'}>
           <Button
-            value={lang?.toUpperCase()}
+            value={languageData?.header.language}
             transition={'all ease .3s'}
             bgHoverColor={'main.btnHoverColor'}
             fontW={'600'}
-            w={'65px'}
             p={'20px'}
             onClick={setOpen.toggle}
           />
           <Box
             as="button"
             onClick={setOpen.toggle}
-            transition={'all ease .3s'}
+            transition={'all ease-in-out .4s'}
             opacity={isOpen ? 1 : 0}
-            position={'relative'}
-            zIndex={-1}
-            transform={isOpen ? 'translateY(0px)' : 'translateY(-100px)'}
+            transform={isOpen ? 'translateY(0px)' : 'translateY(-200px)'}
           >
             <LanguageTab />
           </Box>

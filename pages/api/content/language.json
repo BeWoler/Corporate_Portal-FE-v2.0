@@ -3,14 +3,16 @@
     "header": {
       "signIn": "Sign In",
       "logout": "Logout",
-      "title": "C-Portal"
+      "title": "C-Portal",
+      "language": "Language"
     }
   },
   "ru": {
     "header": {
       "signIn": "Войти",
       "logout": "Выйти",
-      "title": "C-Portal"
+      "title": "C-Portal",
+      "language": "Язык"
     }
   }
 }

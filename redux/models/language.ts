@@ -3,5 +3,6 @@ export type Language = {
     signIn: string;
     logout: string;
     title: string;
-  }
-}
+    language: string;
+  };
+};
