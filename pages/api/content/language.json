@@ -1,5 +1,17 @@
 {
   "en": {
+    "error": {
+      "404": "Sorry, this page does not exist!"
+    },
+    "auth": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "messageIn": "If you already have an account, please log in",
+      "messageUp": "If you are not registered, please register"
+    },
     "header": {
       "signIn": "Sign In",
       "logout": "Logout",
@@ -8,6 +20,18 @@
     }
   },
   "ru": {
+    "error": {
+      "404": "Извините, такой страницы не существует!"
+    },
+    "auth": {
+      "signIn": "Войти",
+      "signUp": "Регистрация",
+      "email": "Почта",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "messageIn": "Если вы уже зарегистрированы, пожалуйста авторизуйтесь",
+      "messageUp": "Если вы не зарегистрированы, пожалуйста зарегистрируйтесь"
+    },
     "header": {
       "signIn": "Войти",
       "logout": "Выйти",

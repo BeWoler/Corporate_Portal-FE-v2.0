@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import authFormSlice from './services/authForm.slice';
 import languageSlice from './services/language.slice';
 import languageTabSlice from './services/languageTab.slice';
 import userSlice from './services/user.slice';
@@ -6,6 +7,7 @@ import userSlice from './services/user.slice';
 const rootReducer = combineReducers({
   languageData: languageSlice,
   languageTabData: languageTabSlice,
+  authFormData: authFormSlice,
   userData: userSlice,
 });
 

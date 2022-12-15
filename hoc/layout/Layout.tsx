@@ -1,15 +1,18 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useAppDispatch } from '@/redux/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/redux';
 import { ILayout } from './interface/layout.interface';
 import { languageData } from '@/redux/services/language.slice';
 import Header from '@/components/Header/Header';
 import lang from '@/content/language.json';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 const Layout: FC<ILayout> = ({ children }: ILayout) => {
   const [cookies] = useCookies(['language']);
   const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.userData);
+  const router = useRouter();
 
   useEffect(() => {
     function getLang() {
@@ -23,6 +26,12 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
     getLang();
   }, [cookies.language, dispatch]);
 
+  // useEffect(() => {
+  //   !userData.value.isLogin &&
+  //     router.pathname !== '/404' &&
+  //     router.push('/login');
+  // }, [userData, router.pathname]);
+
   return (
     <Box
       boxSizing="border-box"
@@ -31,7 +40,16 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
       color={'brand.black'}
     >
       <Header />
-      {children}
+      <Flex
+        direction={'column'}
+        justifyContent={'center'}
+        align={'center'}
+        mt={'50px'}
+        position={'relative'}
+        zIndex={-2}
+      >
+        {children}
+      </Flex>
     </Box>
   );
 };
