@@ -1,18 +1,16 @@
 import Button from '@/components/common/Button/Button/Button';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/redux';
-import authFormSlice, { changeForm } from '@/redux/services/authForm.slice';
-import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Link,
-  Text,
-} from '@chakra-ui/react';
+import { changeForm } from '@/redux/services/authForm.slice';
+import { Flex, FormControl, FormLabel, Input, Text } from '@chakra-ui/react';
 import { ChangeEvent, useState, useEffect } from 'react';
 import { ISignForm } from './interface/singForm.interface';
 
 const SignInForm = ({ signin }: ISignForm) => {
+  const [userData, setUserData] = useState<Object>({
+    email: '',
+    username: '',
+    password: '',
+  });
   const [inputEmail, setInputEmail] = useState<string>('');
   const [inputUsername, setInputUsername] = useState<string>('');
   const [inputPass, setInputPass] = useState<string>('');
@@ -64,6 +62,7 @@ const SignInForm = ({ signin }: ISignForm) => {
           background={'brand.white'}
           color={'brand.black'}
           placeholder="user@mail.com"
+          _placeholder={{ color: 'brand.gray100' }}
           type={'email'}
           value={inputEmail}
           onChange={handleInputEmailChange}
@@ -83,6 +82,7 @@ const SignInForm = ({ signin }: ISignForm) => {
             background={'brand.white'}
             color={'brand.black'}
             placeholder="username"
+            _placeholder={{ color: 'brand.gray100' }}
             type={'text'}
             value={inputUsername}
             onChange={handleInputUsernameChange}
@@ -102,6 +102,7 @@ const SignInForm = ({ signin }: ISignForm) => {
           background={'brand.white'}
           color={'brand.black'}
           placeholder="password"
+          _placeholder={{ color: 'brand.gray100' }}
           type={'password'}
           value={inputPass}
           onChange={handleInputPassChange}
