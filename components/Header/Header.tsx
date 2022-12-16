@@ -35,15 +35,16 @@ const Header = () => {
         fontSize={'30px'}
         letterSpacing={'4px'}
         color={'brand.white'}
+        cursor={'default'}
       >
-        <Link href={contentData?.navLinks.home}>
-          {languageData?.header.title}
-        </Link>
+        {languageData?.header.title}
       </Text>
       <Flex align={'center'} gap={'30px'}>
-        <Flex>
-          <Nav navItems={navData} />
-        </Flex>
+        {userData.isLogin && (
+          <Flex>
+            <Nav navItems={navData} />
+          </Flex>
+        )}
         <Flex direction={'column'} position={'relative'}>
           <Button
             value={languageData?.header.language}
