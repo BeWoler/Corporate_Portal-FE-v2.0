@@ -8,10 +8,23 @@ export interface LanguageState {
 
 const initialState: LanguageState = {
   value: {
+    error: {
+      404: 'Sorry, this page does not exist!',
+    },
+    auth: {
+      signIn: 'Sign In',
+      signUp: 'Sign Up',
+      email: 'Email',
+      username: 'Username',
+      password: 'Password',
+      messageIn: 'If you already have an account, please log in',
+      messageUp: 'If you are not registered, please register',
+    },
     header: {
       signIn: 'Sign In',
       logout: 'Logout',
       title: 'C-Portal',
+      language: 'Language',
     },
   },
   isLoading: false,

@@ -1,6 +1,5 @@
 import { useAppSelector } from '@/redux/hooks/redux';
 import { Box, Flex } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
 const LanguageTab = () => {
@@ -8,14 +7,6 @@ const LanguageTab = () => {
     (state) => state.languageTabData.value
   );
   const [cookies, setCookie] = useCookies(['language']);
-  const [langArr, setLangArr] = useState<Array<string>>(
-    languageTabData?.languages
-  );
-  useEffect(() => {
-    setLangArr(
-      languageTabData?.languages.filter((item) => item !== cookies.language)
-    );
-  }, [cookies.language, languageTabData]);
 
   return (
     languageTabData?.languages && (
@@ -27,28 +18,21 @@ const LanguageTab = () => {
         background={'main.btnColor'}
         transition={'all ease .3s'}
         fontWeight={'600'}
-        borderRadius={'100px'}
-        borderTopRadius={'0'}
-        maxW={'65px'}
+        w={'100%'}
         minW={'65px'}
         textTransform={'uppercase'}
         top={'100%'}
         cursor={'pointer'}
         color={'brand.white'}
       >
-        {langArr.map((item, i) => {
+        {languageTabData?.languages.map((item, i) => {
           return (
             <Box
               transition={'all ease .3s'}
               _hover={{ background: 'main.btnHoverColor' }}
-              borderRadius={'100px'}
-              borderTopRadius={'0px'}
-              borderBottomRadius={
-                i !== langArr.length - 1 && langArr.length > 1 ? '0px' : '100px'
-              }
-              p={'20px'}
-              maxW={'65px'}
+              p={'10px'}
               minW={'65px'}
+              w={'100%'}
               key={item}
               onClick={() => setCookie('language', item)}
             >
