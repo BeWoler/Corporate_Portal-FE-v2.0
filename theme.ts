@@ -1,10 +1,10 @@
-import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
-import { Dict } from '@chakra-ui/utils'
+import { extendTheme, type ThemeConfig } from '@chakra-ui/react';
+import { Dict } from '@chakra-ui/utils';
 
 const config: ThemeConfig = {
   initialColorMode: 'system',
   useSystemColorMode: true,
-}
+};
 
 const styles = {
   global: (props: Dict<any>) => ({
@@ -14,7 +14,7 @@ const styles = {
       zIndex: -2,
     },
   }),
-}
+};
 
 const chakraTheme = extendTheme({
   config,
@@ -25,18 +25,17 @@ const chakraTheme = extendTheme({
       mainColorRGB: 'rgb(29, 53, 87)',
       mainColorRGBWithOpacity: 'rgb(29, 53, 87, 0.6)',
       btnColor: '#e63946',
-      btnHoverColor: '#c1303a'
+      btnHoverColor: '#c1303a',
     },
     brand: {
       white: '#fff',
       black: '#000',
-      gray100: '#a5abb5'
+      gray100: '#a5abb5',
     },
   },
   fonts: {
     body: `'Poppins', sans-serif`,
   },
+});
 
-})
-
-export default chakraTheme
+export default chakraTheme;

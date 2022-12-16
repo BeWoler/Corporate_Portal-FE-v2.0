@@ -1,20 +1,22 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useLayoutEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/redux';
 import { ILayout } from './interface/layout.interface';
 import { languageData } from '@/redux/services/language.slice';
 import Header from '@/components/Header/Header';
 import lang from '@/content/language.json';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 const Layout: FC<ILayout> = ({ children }: ILayout) => {
-  const [cookies] = useCookies(['language']);
   const dispatch = useAppDispatch();
+  const [cookies] = useCookies(['language']);
   const userData = useAppSelector((state) => state.userData);
+  const langData = useAppSelector((state) => state.languageData.value);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function getLang() {
       switch (cookies.language) {
         case 'en':
@@ -26,11 +28,16 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
     getLang();
   }, [cookies.language, dispatch]);
 
-  // useEffect(() => {
-  //   !userData.value.isLogin &&
-  //     router.pathname !== '/404' &&
-  //     router.push('/login');
-  // }, [userData, router.pathname]);
+  useLayoutEffect(() => {
+    setLoading(true);
+    if (!userData.value.isLogin && router.pathname !== '/404') {
+      router.push('/');
+    } else if (userData.value.isLogin && router.pathname === '/') {
+      router.push('/home');
+    }
+    const timer = setTimeout(() => setLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, [userData, router.pathname]);
 
   return (
     <Box
@@ -40,16 +47,44 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
       color={'brand.black'}
     >
       <Header />
-      <Flex
-        direction={'column'}
-        justifyContent={'center'}
-        align={'center'}
-        mt={'50px'}
-        position={'relative'}
-        zIndex={-2}
-      >
-        {children}
-      </Flex>
+      {loading ? (
+        <Flex
+          align={'center'}
+          justify={'center'}
+          h={'50vh'}
+          direction={'column'}
+          gap={'5px'}
+        >
+          <Text
+            as="h2"
+            fontWeight={'700'}
+            fontSize={'30px'}
+            letterSpacing={'4px'}
+            color={'brand.black'}
+          >
+            {langData?.header.title}
+          </Text>
+          <Spinner
+            w={'70px'}
+            h={'70px'}
+            thickness={'8px'}
+            speed="0.65s"
+            color="main.mainColor"
+            emptyColor="main.btnColor"
+          />
+        </Flex>
+      ) : (
+        <Flex
+          direction={'column'}
+          justifyContent={'center'}
+          align={'center'}
+          mt={'50px'}
+          position={'relative'}
+          zIndex={-2}
+        >
+          {children}
+        </Flex>
+      )}
     </Box>
   );
 };
