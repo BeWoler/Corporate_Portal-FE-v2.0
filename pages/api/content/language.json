@@ -17,6 +17,13 @@
       "logout": "Logout",
       "title": "C-Portal",
       "language": "Language"
+    },
+    "nav": {
+      "main": "Home",
+      "chats": "Chats",
+      "posts": "Posts",
+      "network": "Network",
+      "settings": "Settings"
     }
   },
   "ru": {
@@ -37,6 +44,13 @@
       "logout": "Выйти",
       "title": "C-Portal",
       "language": "Язык"
+    },
+    "nav": {
+      "main": "Главная",
+      "chats": "Чаты",
+      "posts": "Посты",
+      "network": "Сеть",
+      "settings": "Настройки"
     }
   }
 }
