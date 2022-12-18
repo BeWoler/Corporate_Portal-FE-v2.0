@@ -1,15 +1,23 @@
 import { Box, Flex, Text, Avatar, useBoolean } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useAppSelector } from '../../redux/hooks/redux';
 import Button from '../common/Button/Button/Button';
 import LanguageTab from '../common/LanguageTab/LanguageTab';
+import Nav from '../Nav/Nav';
 
 const Header = () => {
   const [isOpen, setOpen] = useBoolean();
   const languageData = useAppSelector((state) => state.languageData.value);
   const userData = useAppSelector((state) => state.userData.value);
-  const router = useRouter();
+  const contentData = useAppSelector((state) => state.contentData.value);
+
+  const navData = [
+    { title: languageData?.nav.main, link: contentData?.navLinks.home },
+    { title: languageData?.nav.chats, link: contentData?.navLinks.chats },
+    { title: languageData?.nav.posts, link: contentData?.navLinks.posts },
+    { title: languageData?.nav.network, link: contentData?.navLinks.network },
+    { title: languageData?.nav.settings, link: contentData?.navLinks.settings },
+  ];
 
   return (
     <Flex
@@ -27,10 +35,16 @@ const Header = () => {
         fontSize={'30px'}
         letterSpacing={'4px'}
         color={'brand.white'}
+        cursor={'default'}
       >
-        <Link href={'/'}>{languageData?.header.title}</Link>
+        {languageData?.header.title}
       </Text>
       <Flex align={'center'} gap={'30px'}>
+        {userData.isLogin && (
+          <Flex>
+            <Nav navItems={navData} />
+          </Flex>
+        )}
         <Flex direction={'column'} position={'relative'}>
           <Button
             value={languageData?.header.language}
@@ -52,7 +66,7 @@ const Header = () => {
             <LanguageTab />
           </Box>
         </Flex>
-        {userData.username && (
+        {userData.isLogin && (
           <Flex align={'center'} direction={'row'} gap={'10px'} ml={'20px'}>
             <Avatar name={userData.username} size={'sm'} />
             <Box>{userData.username}</Box>

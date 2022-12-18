@@ -17,4 +17,11 @@ export type Language = {
     title: string;
     language: string;
   };
+  nav: {
+    main: string;
+    chats: string;
+    posts: string;
+    network: string;
+    settings: string;
+  };
 };

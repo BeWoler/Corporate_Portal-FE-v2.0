@@ -26,6 +26,13 @@ const initialState: LanguageState = {
       title: 'C-Portal',
       language: 'Language',
     },
+    nav: {
+      main: 'Home',
+      chats: 'Chats',
+      posts: 'Posts',
+      network: 'Network',
+      settings: 'Settings',
+    },
   },
   isLoading: false,
 };
