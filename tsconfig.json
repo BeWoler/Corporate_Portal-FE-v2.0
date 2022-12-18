@@ -38,10 +38,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "utils/hooks/usePwaReload.js",
-    "components/ClientOnly.tsx",
-    "database/db.ts",
-    "database/api.js"
   ],
   "exclude": [
     "node_modules"
