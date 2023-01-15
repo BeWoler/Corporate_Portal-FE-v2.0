@@ -5,7 +5,7 @@ import { User, UserResponseDto } from '../models/user';
 export const authAPI = createApi({
   reducerPath: 'authAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_LOCAL_API_URL || 'http://localhost:7000',
+    baseUrl: process.env.NEXT_API_URL || 'http://localhost:7000',
     credentials: 'include',
   }),
   endpoints: (build) => ({
