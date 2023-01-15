@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import authFormSlice from './services/authForm.slice';
-import contentSlice from './services/content.slice';
-import languageSlice from './services/language.slice';
-import languageTabSlice from './services/languageTab.slice';
-import userSlice from './services/user.slice';
+import { authAPI } from '@/redux/services/auth.service';
+import authFormSlice from './slices/authForm.slice';
+import contentSlice from './slices/content.slice';
+import languageSlice from './slices/language.slice';
+import languageTabSlice from './slices/languageTab.slice';
+import userSlice from './slices/user.slice';
 
 const rootReducer = combineReducers({
   languageData: languageSlice,
@@ -11,13 +12,14 @@ const rootReducer = combineReducers({
   contentData: contentSlice,
   authFormData: authFormSlice,
   userData: userSlice,
+  [authAPI.reducerPath]: authAPI.reducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ serializableCheck: false }),
+      getDefaultMiddleware().concat(authAPI.middleware),
   });
 };
 

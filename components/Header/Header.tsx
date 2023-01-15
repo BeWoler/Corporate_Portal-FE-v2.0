@@ -40,7 +40,7 @@ const Header = () => {
         {languageData?.header.title}
       </Text>
       <Flex align={'center'} gap={'30px'}>
-        {userData.isLogin && (
+        {userData.email && (
           <Flex>
             <Nav navItems={navData} />
           </Flex>
@@ -66,9 +66,9 @@ const Header = () => {
             <LanguageTab />
           </Box>
         </Flex>
-        {userData.isLogin && (
+        {userData.email && (
           <Flex align={'center'} direction={'row'} gap={'10px'} ml={'20px'}>
-            <Avatar name={userData.username} size={'sm'} />
+            <Avatar name={userData.email} size={'sm'} />
             <Box>{userData.username}</Box>
           </Flex>
         )}
