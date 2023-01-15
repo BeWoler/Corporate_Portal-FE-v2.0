@@ -1,22 +1,24 @@
-import { FC, useLayoutEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/redux';
 import { ILayout } from './interface/layout.interface';
-import { languageData } from '@/redux/services/language.slice';
+import { languageData } from '@/redux/slices/language.slice';
 import Header from '@/components/Header/Header';
 import lang from '@/content/language.json';
 import { Box, Flex, Spinner, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { authAPI } from '@/redux/services/auth.service';
 
 const Layout: FC<ILayout> = ({ children }: ILayout) => {
   const dispatch = useAppDispatch();
-  const [cookies] = useCookies(['language']);
+  const [cookies] = useCookies(['language', 'rtToken']);
   const userData = useAppSelector((state) => state.userData);
   const langData = useAppSelector((state) => state.languageData.value);
+  const [refresh, { isLoading, data, error }] = authAPI.useRefreshMutation();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     function getLang() {
       switch (cookies.language) {
         case 'en':
@@ -28,16 +30,20 @@ const Layout: FC<ILayout> = ({ children }: ILayout) => {
     getLang();
   }, [cookies.language, dispatch]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setLoading(true);
-    if (!userData.value.isLogin && router.pathname !== '/404') {
+    if (!userData.value.email && router.pathname !== '/404') {
       router.push('/');
-    } else if (userData.value.isLogin && router.pathname === '/') {
+    } else if (userData.value.email && router.pathname === '/') {
       router.push('/home');
     }
     const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, [userData, router.pathname]);
+
+  useEffect(() => {
+    refresh(userData?.value);
+  }, [userData]);
 
   return (
     <Box

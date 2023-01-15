@@ -1,6 +1,14 @@
 export type User = {
-  id: string;
+  id?: string;
   email: string;
-  username: string;
-  isLogin: boolean;
+  username?: string;
+};
+
+export type UserResponseDto = {
+  user: {
+    id?: string;
+    email: string;
+    username?: string;
+    password: string;
+  };
 };

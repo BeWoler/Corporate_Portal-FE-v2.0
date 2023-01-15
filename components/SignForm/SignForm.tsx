@@ -1,38 +1,59 @@
 import Button from '@/components/common/Button/Button/Button';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/redux';
-import { changeForm } from '@/redux/services/authForm.slice';
+import { authAPI } from '@/redux/services/auth.service';
+import { changeForm } from '@/redux/slices/authForm.slice';
+import { userData } from '@/redux/slices/user.slice';
 import { Flex, FormControl, FormLabel, Input, Text } from '@chakra-ui/react';
 import { ChangeEvent, useState, useEffect } from 'react';
-import { ISignForm } from './interface/singForm.interface';
+import { ISignForm, IUserFormData } from './interface/singForm.interface';
 
-const SignInForm = ({ signin }: ISignForm) => {
-  const [userData, setUserData] = useState<Object>({
-    email: '',
-    username: '',
-    password: '',
-  });
-  const [inputEmail, setInputEmail] = useState<string>('');
-  const [inputUsername, setInputUsername] = useState<string>('');
-  const [inputPass, setInputPass] = useState<string>('');
+const SignForm = ({ signin }: ISignForm) => {
+  const [formData, setFormData] = useState<IUserFormData>(
+    !signin
+      ? {
+          email: '',
+          username: '',
+          password: '',
+        }
+      : { email: '', password: '' }
+  );
   const [error, setError] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const languageData = useAppSelector((state) => state.languageData.value);
 
+  const [userSignin, signinData] = authAPI.useSigninMutation();
+  const [userSignup, signupData] = authAPI.useSignupMutation();
+
   const handleInputEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputEmail(e.target.value);
+    setFormData({ ...formData, email: e.target.value });
   };
 
   const handleInputUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputUsername(e.target.value);
+    setFormData({ ...formData, username: e.target.value });
   };
 
   const handleInputPassChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputPass(e.target.value);
+    setFormData({ ...formData, password: e.target.value });
+  };
+
+  const handleSendData = async () => {
+    signin
+      ? await userSignin({ ...formData })
+      : await userSignup({ ...formData });
+    setFormData({ email: '', username: '', password: '' });
   };
 
   useEffect(() => {
-    !inputEmail ? setError(true) : setError(false);
-  }, [inputEmail]);
+    if (signin) {
+      signinData?.isSuccess && dispatch(userData(signinData?.data?.user));
+      signinData?.isSuccess &&
+        localStorage.setItem('acToken', signinData?.data?.accessToken);
+    } else {
+      signupData?.isSuccess && dispatch(userData(signupData?.data?.user));
+      signupData?.isSuccess &&
+        localStorage.setItem('acToken', signupData?.data?.accessToken);
+    }
+  }, [signinData, signupData]);
 
   return (
     <Flex
@@ -64,7 +85,7 @@ const SignInForm = ({ signin }: ISignForm) => {
           placeholder="user@mail.com"
           _placeholder={{ color: 'brand.gray100' }}
           type={'email'}
-          value={inputEmail}
+          value={formData.email}
           onChange={handleInputEmailChange}
         />
       </FormControl>
@@ -84,7 +105,7 @@ const SignInForm = ({ signin }: ISignForm) => {
             placeholder="username"
             _placeholder={{ color: 'brand.gray100' }}
             type={'text'}
-            value={inputUsername}
+            value={formData.username}
             onChange={handleInputUsernameChange}
           />
         </FormControl>
@@ -104,7 +125,7 @@ const SignInForm = ({ signin }: ISignForm) => {
           placeholder="password"
           _placeholder={{ color: 'brand.gray100' }}
           type={'password'}
-          value={inputPass}
+          value={formData.password}
           onChange={handleInputPassChange}
         />
       </FormControl>
@@ -116,6 +137,7 @@ const SignInForm = ({ signin }: ISignForm) => {
         transition={'all ease-in-out .3s'}
         bgHoverColor={'main.btnHoverColor'}
         fontW={'600'}
+        onClick={handleSendData}
       />
       <Text>
         {signin ? languageData?.auth.messageUp : languageData?.auth.messageIn}.
@@ -140,4 +162,4 @@ const SignInForm = ({ signin }: ISignForm) => {
   );
 };
 
-export default SignInForm;
+export default SignForm;
