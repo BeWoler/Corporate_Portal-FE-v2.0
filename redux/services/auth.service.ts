@@ -6,6 +6,7 @@ export const authAPI = createApi({
   reducerPath: 'authAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_LOCAL_API_URL || 'http://localhost:7000',
+    credentials: 'include',
   }),
   endpoints: (build) => ({
     signin: build.mutation<UserResponseDto & Token, User>({
@@ -13,7 +14,6 @@ export const authAPI = createApi({
         url: '/auth/signin',
         method: 'POST',
         body: user,
-        credentials: 'include',
       }),
     }),
     signup: build.mutation<UserResponseDto & Token, User>({
@@ -21,7 +21,6 @@ export const authAPI = createApi({
         url: '/auth/signup',
         method: 'POST',
         body: user,
-        credentials: 'include',
       }),
     }),
     logout: build.mutation<string, boolean>({
@@ -36,7 +35,6 @@ export const authAPI = createApi({
         url: '/auth/refresh',
         method: 'POST',
         body: id,
-        credentials: 'include',
       }),
     }),
   }),
