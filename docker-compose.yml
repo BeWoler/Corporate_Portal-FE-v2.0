@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  main:
+    container_name: 'mainClient'
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    command: npm run dev
+    restart: always
