@@ -53,7 +53,7 @@ const SignForm = ({ signin }: ISignForm) => {
       signupData?.isSuccess &&
         localStorage.setItem('acToken', signupData?.data?.accessToken);
     }
-  }, [signinData, signupData]);
+  }, [signinData, signupData, signin, dispatch]);
 
   return (
     <Flex
